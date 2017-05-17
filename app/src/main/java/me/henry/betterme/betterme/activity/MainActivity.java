@@ -143,6 +143,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     }
 
     private void initBrocast() {
+        Log.e("??","??");
         mMusicBro = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
