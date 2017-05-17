@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpreadiRefreshLayout">
+        <attr name="sr_max_head_height" format="dimension"/>
+        <attr name="sr_head_height" format="dimension"/>
+        <attr name="sr_max_bottom_height" format="dimension"/>
+        <attr name="sr_bottom_height" format="dimension"/>
+        <attr name="sr_overscroll_height" format="dimension"/>
+        <attr name="sr_enable_loadmore" format="boolean"/>
+        <attr name="sr_pureScrollMode_on" format="boolean"/>
+        <attr name="sr_overscroll_top_show" format="boolean"/>
+        <attr name="sr_overscroll_bottom_show" format="boolean"/>
+        <attr name="sr_enable_overscroll" format="boolean"/>
+        <attr name="sr_headerView" format="dimension"/>
+        <attr name="sr_bottomView" format="dimension"/>
+    </declare-styleable>
+</resources>

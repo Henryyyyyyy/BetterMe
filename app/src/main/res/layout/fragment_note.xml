@@ -1,0 +1,40 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+
+ <RelativeLayout
+     android:layout_width="match_parent"
+     android:id="@+id/rlTopPanel"
+     android:background="#B0E2FF"
+     android:layout_height="60dp">
+     <TextView
+         android:layout_width="wrap_content"
+         android:id="@+id/tvAddNote"
+         android:text="Add"
+         android:gravity="center"
+         android:layout_centerVertical="true"
+         android:layout_marginLeft="10dp"
+         android:layout_height="wrap_content"
+         />
+     <TextView
+         android:layout_width="wrap_content"
+         android:id="@+id/tvDeleteNote"
+         android:text="Delete"
+         android:gravity="center"
+         android:layout_centerVertical="true"
+         android:layout_marginLeft="20dp"
+         android:layout_toRightOf="@+id/tvAddNote"
+         android:layout_height="wrap_content"
+         />
+ </RelativeLayout>
+ <android.support.v7.widget.RecyclerView
+     android:layout_width="match_parent"
+     android:id="@+id/rvNote"
+     android:layout_below="@+id/rlTopPanel"
+     android:layout_height="match_parent">
+
+ </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
