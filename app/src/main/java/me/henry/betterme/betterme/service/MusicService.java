@@ -51,6 +51,7 @@ public class MusicService extends Service {
                 try {
                     mBinder.next();
                     Log.e(TAG,"onCompletion");
+                    Log.e(TAG,"onCompletion");
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
