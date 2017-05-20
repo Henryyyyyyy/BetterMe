@@ -1,21 +1,13 @@
 package me.henry.betterme.betterme.fragment;
 
 
-import android.content.BroadcastReceiver;
+
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -28,16 +20,13 @@ import me.henry.betterme.betterme.model.MusicInfo;
 import me.henry.betterme.betterme.presenter.MusicPresenter;
 import me.henry.betterme.betterme.presenter.contracts.MusicContract;
 import me.henry.betterme.betterme.service.MusicPlayer;
-import me.henry.betterme.betterme.utils.MusicUtil;
 import me.henry.betterme.betterme.utils.Utils;
 import me.henry.betterme.betterme.view.Recycler.version1.BaseRvAdapter;
 
 import static me.henry.betterme.betterme.service.MusicService.currentMusicInfo;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class MusicFragment extends BaseFragment<MusicContract.View, MusicPresenter> implements MusicContract.View, View.OnClickListener {
     public static final String TAG = "MusicFragment";
     @BindView(R.id.rvMusicList)

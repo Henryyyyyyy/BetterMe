@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         ivPlayOrPause.setOnClickListener(this);
         ivPrevious.setOnClickListener(this);
         initBrocast();
-
+        freshMusicPanel(MusicPlayer.getCurrentMusicInfo());
         //自定义ContainerView
         ArrayList<BaseRowDescriber> rowDiscribers1 = new ArrayList<>();
         rowDiscribers1.add(new RowDescriber(R.drawable.ic_launcher, "草草", R.drawable.ic_launcher, RowActionEnum.MY_FIRST));
@@ -143,13 +143,12 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     }
 
     private void initBrocast() {
-        Log.e("??","??");
         mMusicBro = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(Constants.Action_updateMusicInfo)) {
                     currentMusicInfo = intent.getParcelableExtra("music");
-                    freshMusicPanel();
+                    freshMusicPanel(currentMusicInfo);
                 }
             }
         };
@@ -158,12 +157,13 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         registerReceiver(mMusicBro, filter);
     }
 
-    private void freshMusicPanel() {
-        if (currentMusicInfo != null) {
-            tvCurMusicName.setText(currentMusicInfo.musicName);
-            tvCurMusicSinger.setText(currentMusicInfo.artist);
+    private void freshMusicPanel(MusicInfo info) {
+        if (info != null) {
+            Log.e("suck","currentMusicInfo="+info.toString());
+            tvCurMusicName.setText(info.musicName);
+            tvCurMusicSinger.setText(info.artist);
             Glide.with(this)
-                    .load(MusicUtil.getAlbumArtUri(currentMusicInfo.albumId))
+                    .load(MusicUtil.getAlbumArtUri(info.albumId))
                     .placeholder(R.drawable.stayaway)
                     .into(ivCurMusicCover);
         }
@@ -171,7 +171,9 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     @Override
     public void showTips() {
+
         Toast.makeText(this, "haha", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

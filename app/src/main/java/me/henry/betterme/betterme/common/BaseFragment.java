@@ -27,6 +27,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     protected boolean isVisible; //是否可见
     public boolean isPrepared = false;// 标志位，标志Fragment已经初始化完成。
     private boolean hasLoaded = false;//标记已加载完成，保证懒加载只能加载一次
+
     public BaseFragment(Context Context) {
         this.mContext = Context;
     }

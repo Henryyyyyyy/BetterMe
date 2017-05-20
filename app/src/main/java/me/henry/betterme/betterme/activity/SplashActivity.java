@@ -7,11 +7,11 @@ import android.util.Log;
 import android.view.Window;
 
 import java.io.UnsupportedEncodingException;
+
 import java.util.concurrent.TimeUnit;
 
 import me.henry.betterme.betterme.R;
 import me.henry.betterme.betterme.app.BetterMeApplication;
-import me.henry.betterme.betterme.demo.recyclerviewdemo.AdapterActivity;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -26,9 +26,26 @@ public class SplashActivity extends AppCompatActivity {
         if (getSupportActionBar()!=null) {
             getSupportActionBar().hide();
         }
+        testShuffle();
+
         setContentView(R.layout.activity_splash);
+
         jumpPage();
         BetterMeApplication.getInstance().addActivity(this);
+    }
+    private void testShuffle() {
+//        List <String>musics=new ArrayList<>();
+//        for (int i = 0; i <10 ; i++) {
+//            musics.add((i+1)+".mp3");
+//        }
+//        for (int i = 0; i < musics.size(); i++) {
+//            Log.e("shuffle前:",musics.get(i));
+//        }
+//        Collections.shuffle(musics);
+//        for (int i = 0; i < musics.size(); i++) {
+//            Log.e("shuffle后:",musics.get(i));
+//        }
+
     }
     public void jumpPage() {
         String s="我爱你";

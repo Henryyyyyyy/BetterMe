@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * me.henry.betterme.betterme.model
  */
 
-public class MusicInfo implements Parcelable{
+public class MusicInfo implements Parcelable,Comparable<MusicInfo>{
     public static final String KEY_SONG_ID = "songid";
     public static final String KEY_ALBUM_ID = "albumid";
     public static final String KEY_ALBUM_NAME = "albumname";
@@ -116,5 +116,13 @@ public class MusicInfo implements Parcelable{
                 ", sort='" + sort + '\'' +
                 ", size=" + size +
                 '}';
+    }
+    @Override
+    public int compareTo(MusicInfo o) {
+        return compare(this.songId, o.songId);
+    }
+    //-1（是正确顺序），0不变，1变
+    public static int compare(long x, long y) {
+        return (x > y) ? -1 : ((x == y) ? 0 : 1);
     }
 }

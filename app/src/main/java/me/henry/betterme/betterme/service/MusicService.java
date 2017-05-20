@@ -18,6 +18,8 @@ import me.henry.betterme.betterme.common.Constants;
 import me.henry.betterme.betterme.model.MusicInfo;
 import me.henry.betterme.betterme.utils.Utils;
 
+import static android.os.Build.VERSION_CODES.M;
+
 
 /**
  * Created by zj on 2017/4/11.
@@ -111,6 +113,8 @@ public class MusicService extends Service {
                     mPlayer.reset();
                     if (currentIndex != 0) {
                         currentIndex--;//如果已经减到第一首了，就不给它继续减下去
+                    }else {
+                        currentIndex=mMusicList.size()-1;
                     }
                     Log.e(TAG,"previous(),currentIndex="+currentIndex);
                     mPlayer.setDataSource(mMusicList.get(currentIndex).data);

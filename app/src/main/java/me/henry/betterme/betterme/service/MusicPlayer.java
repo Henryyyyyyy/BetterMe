@@ -74,7 +74,11 @@ public class MusicPlayer {
     }
     public static MusicInfo getCurrentMusicInfo(){
         try {
-            return mService.getCurrentMusicInfo();
+            if (mService==null){
+                return null;
+            }else {
+                return mService.getCurrentMusicInfo();
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
             return null;
