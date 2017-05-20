@@ -84,4 +84,12 @@ public class MusicPlayer {
             return null;
         }
     }
+    public static void setPlayMode(int mode){
+        try {
+         mService.setPlayMode(mode);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+
+        }
+    }
 }

@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/light_white"
+                android:background="@color/myorange"
                 android:padding="5dp">
 
                 <ImageView
@@ -115,6 +115,13 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/ivNext"
                     android:src="@drawable/playbar_btn_play" />
+                <ImageView
+                    android:id="@+id/ivMusicMode"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/ivPrevious"
+                    android:src="@drawable/play_icn_loop" />
 
             </RelativeLayout>
         </RelativeLayout>
@@ -122,6 +129,7 @@
         <RelativeLayout
             android:id="@+id/rlNavi"
             android:layout_width="300dp"
+
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@color/colorAccent">

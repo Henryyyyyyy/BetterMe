@@ -13,5 +13,6 @@ interface IMusicInterface {
     void previous();
     void getCurrentPosition();
     void playMusic(in MusicInfo music,int index);
-MusicInfo getCurrentMusicInfo();
+    void setPlayMode(in int mode);
+    MusicInfo getCurrentMusicInfo();
 }

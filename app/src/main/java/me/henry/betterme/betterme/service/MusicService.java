@@ -11,6 +11,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.henry.betterme.betterme.IMusicInterface;
@@ -32,7 +33,10 @@ public class MusicService extends Service {
     public static int currentIndex = 0;
     public static MusicInfo currentMusicInfo = null;
     public List<MusicInfo> mMusicList = new ArrayList<>();
+    public List<MusicInfo> mNormalList=new ArrayList<>();//用来保存原有的顺序
     public BroadcastReceiver mUpdateMusicBroadCast;
+    public int mMode = Constants.PlayMode_Loop;
+
 
     @Override
     public void onCreate() {
@@ -42,6 +46,8 @@ public class MusicService extends Service {
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(Constants.Action_updateMusicList)) {
                     mMusicList = intent.getParcelableArrayListExtra("musiclist");
+                    mNormalList.clear();
+                    mNormalList.addAll(mMusicList);
                 }
             }
         };
@@ -49,9 +55,12 @@ public class MusicService extends Service {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 try {
-                    mBinder.next();
-                    Log.e(TAG,"onCompletion");
-                    Log.e(TAG,"onCompletion");
+                    if (mMode==Constants.PlayMode_OnlyOne){
+                        mBinder.playMusic(currentMusicInfo,currentIndex);
+                    }else {
+                        mBinder.next();
+                    }
+                    Log.e(TAG, "onCompletion");
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -75,7 +84,7 @@ public class MusicService extends Service {
     private final IMusicInterface.Stub mBinder = new IMusicInterface.Stub() {
         @Override
         public void playOrPause() throws RemoteException {
-            Log.e(TAG,"playOrPause(),currentIndex="+currentIndex);
+            Log.e(TAG, "playOrPause(),currentIndex=" + currentIndex);
             if (mPlayer.isPlaying()) {
                 mPlayer.pause();
             } else {
@@ -91,9 +100,10 @@ public class MusicService extends Service {
                     mPlayer.reset();
                     currentIndex++;
                     if (currentIndex > mMusicList.size() - 1) {
-                        currentIndex = 0;//如果next到最后一首就重新来
-                    }
-                    Log.e(TAG,"next(),currentIndex="+currentIndex);
+                        currentIndex = 0;
+                    }//如果next到最后一首就重新来
+
+                  if (currentIndex>mMusicList.size()-1){currentIndex=mMusicList.size()-1;}//预防删除很多歌后currentindex溢出
                     mPlayer.setDataSource(mMusicList.get(currentIndex).data);
                     mPlayer.prepare();
                     mPlayer.seekTo(0);
@@ -114,10 +124,10 @@ public class MusicService extends Service {
                     mPlayer.reset();
                     if (currentIndex != 0) {
                         currentIndex--;//如果已经减到第一首了，就不给它继续减下去
-                    }else {
-                        currentIndex=mMusicList.size()-1;
+                    } else {
+                        currentIndex = mMusicList.size() - 1;
                     }
-                    Log.e(TAG,"previous(),currentIndex="+currentIndex);
+                    Log.e(TAG, "previous(),currentIndex=" + currentIndex);
                     mPlayer.setDataSource(mMusicList.get(currentIndex).data);
                     mPlayer.prepare();
                     mPlayer.seekTo(0);
@@ -143,7 +153,7 @@ public class MusicService extends Service {
                     mPlayer.reset();
                     mPlayer.setDataSource(music.data);
                     currentIndex = index;
-                    Log.e(TAG,"playMusic(),currentIndex="+currentIndex);
+                    Log.e(TAG, "playMusic(),currentIndex=" + currentIndex);
                     mPlayer.prepare();
                     mPlayer.seekTo(0);
                     mPlayer.start();
@@ -151,6 +161,30 @@ public class MusicService extends Service {
                     notifyChanges(Constants.Action_updateMusicInfo);
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void setPlayMode(int mode) throws RemoteException {
+            mMode = mode;
+
+            if (mode == Constants.PlayMode_Shuffle) {
+                Collections.shuffle(mMusicList);
+                for (int i = 0; i < mMusicList.size(); i++) {//将洗牌前的currentindex变成当前的currentindex
+                    if (mMusicList.get(i).songId == currentMusicInfo.songId) {
+                        currentIndex = i;
+                    }
+                }
+            } else {
+                if (mNormalList != null&&mNormalList.size()>0) {
+                    mMusicList.clear();
+                    mMusicList.addAll(mNormalList);
+                    for (int i = 0; i < mMusicList.size(); i++) {
+                        if (mMusicList.get(i).songId == currentMusicInfo.songId) {
+                            currentIndex = i;
+                        }
+                    }
                 }
             }
         }

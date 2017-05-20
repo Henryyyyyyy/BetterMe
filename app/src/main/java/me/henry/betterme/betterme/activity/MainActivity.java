@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -63,8 +64,11 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     ImageView ivPrevious;
     @BindView(R.id.ivPlayOrPause)
     ImageView ivPlayOrPause;
+    @BindView(R.id.ivMusicMode)
+    ImageView ivMusicMode;
     @BindView(R.id.mContainerView)
     ContainerView mContainerView;
+
 
     private BroadcastReceiver mMusicBro;
     Toolbar mToolbar;
@@ -74,6 +78,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     private MusicFragment musicFragment;
     private NoteFragment noteFragment;
     private MusicInfo currentMusicInfo;
+
 
     @Override
     protected MainPresenter initPresenter() {
@@ -114,6 +119,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         ivNext.setOnClickListener(this);
         ivPlayOrPause.setOnClickListener(this);
         ivPrevious.setOnClickListener(this);
+        ivMusicMode.setOnClickListener(this);
         initBrocast();
         freshMusicPanel(MusicPlayer.getCurrentMusicInfo());
         //自定义ContainerView
@@ -127,7 +133,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         mContainerView.setOnRowClickListener(new onRowClickListener() {
             @Override
             public void onRowClick(RowActionEnum action) {
-                Log.e("exome","onRowClick");
+                Log.e("exome", "onRowClick");
                 if (action.equals(RowActionEnum.MY_FIRST)) {
                     Toast.makeText(MainActivity.this, "haha", Toast.LENGTH_SHORT).show();
                 } else if (action.equals(RowActionEnum.MY_SECOND)) {
@@ -159,7 +165,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     private void freshMusicPanel(MusicInfo info) {
         if (info != null) {
-            Log.e("suck","currentMusicInfo="+info.toString());
+            Log.e("suck", "currentMusicInfo=" + info.toString());
             tvCurMusicName.setText(info.musicName);
             tvCurMusicSinger.setText(info.artist);
             Glide.with(this)
@@ -188,7 +194,34 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
             case R.id.ivPlayOrPause:
                 MusicPlayer.PlayOrPause();
                 break;
+            case R.id.ivMusicMode:
+                setPlayingMode();
+                break;
 
+        }
+    }
+
+    //模式点击顺序:顺序播放，随机播放，循环播放
+    private int modeIndex = 1;
+
+    private void setPlayingMode() {
+        if (modeIndex == 1) {
+            modeIndex = modeIndex+1;
+            ivMusicMode.setImageResource(R.drawable.play_icn_shuffle);
+            MusicPlayer.setPlayMode(Constants.PlayMode_Shuffle);
+            return;
+        }
+        else if (modeIndex == 2) {
+            modeIndex = modeIndex+1;
+            ivMusicMode.setImageResource(R.drawable.play_icn_one);
+            MusicPlayer.setPlayMode(Constants.PlayMode_OnlyOne);
+            return;
+        }
+        else if (modeIndex == 3) {
+            modeIndex = 1;
+            ivMusicMode.setImageResource(R.drawable.play_icn_loop);
+            MusicPlayer.setPlayMode(Constants.PlayMode_Loop);
+            return;
         }
     }
 
