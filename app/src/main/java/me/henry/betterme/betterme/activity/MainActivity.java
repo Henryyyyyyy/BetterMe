@@ -102,6 +102,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         for (int i = 0; i < titles.size(); i++) {
             tabs.addTab(tabs.newTab().setText(titles.get(i)));
         }
+
         //init pager-----------------
         girlFragment = new GirlFragment(this);
         musicFragment = new MusicFragment(this);

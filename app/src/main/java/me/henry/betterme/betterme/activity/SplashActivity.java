@@ -8,10 +8,16 @@ import android.view.Window;
 
 import java.io.UnsupportedEncodingException;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import me.henry.betterme.betterme.R;
 import me.henry.betterme.betterme.app.BetterMeApplication;
+import me.henry.betterme.betterme.http.ICallBack;
+import me.henry.betterme.betterme.http.Request;
+import me.henry.betterme.betterme.http.RequestTask;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -34,18 +40,24 @@ public class SplashActivity extends AppCompatActivity {
         BetterMeApplication.getInstance().addActivity(this);
     }
     private void testShuffle() {
-//        List <String>musics=new ArrayList<>();
-//        for (int i = 0; i <10 ; i++) {
-//            musics.add((i+1)+".mp3");
-//        }
-//        for (int i = 0; i < musics.size(); i++) {
-//            Log.e("shuffle前:",musics.get(i));
-//        }
-//        Collections.shuffle(musics);
-//        for (int i = 0; i < musics.size(); i++) {
-//            Log.e("shuffle后:",musics.get(i));
-//        }
+        String url = "http://api.stay4it.com/v1/public/core/?service=user.login";
+        String content = "account=stay4it&password=123456";
 
+        final Request request=new Request(url, Request.RequestMethod.POST);
+        request.content=content;
+        request.setCallBack(new ICallBack() {
+            @Override
+            public void onSuccess(String result) {
+                Log.e("keith","o??????="+result);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+        RequestTask task=new RequestTask(request);
+        task.execute();
     }
     public void jumpPage() {
         String s="我爱你";
