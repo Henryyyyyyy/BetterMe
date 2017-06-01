@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
+import me.henry.betterme.betterme.http.callback.ICallBack;
+
 /**
  * Created by zj on 2017/5/23.
  * me.henry.betterme.betterme.http
@@ -19,6 +21,15 @@ public class Request {
     public RequestTool tool;
     public String content;
     public Map<String, String> headers;
+    public int maxRetryCount = 3;
+    public boolean isProgressUpdate;
+    public OnGlobalExceptionListener onGlobalExceptionListener;
+    public void setGlobalExceptionListener(OnGlobalExceptionListener onGlobalExceptionListener) {
+        this.onGlobalExceptionListener = onGlobalExceptionListener;
+    }
+    public void enableProgressUpdated(boolean b) {
+        isProgressUpdate = b;
+    }
 
     public enum RequestMethod {GET, POST, PUT, DELETE}
 
