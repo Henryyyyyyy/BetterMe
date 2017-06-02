@@ -1,15 +1,15 @@
 package me.henry.betterme.betterme.http.callback;
 
 
-import android.util.Log;
-
 import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
 import me.henry.betterme.betterme.http.AppException;
-import me.henry.betterme.betterme.http.callback.AbstractCallBack;
 
 /**
  * Created by zj on 2017/5/26.
@@ -20,7 +20,6 @@ import me.henry.betterme.betterme.http.callback.AbstractCallBack;
 public abstract class JsonCallBack<T> extends AbstractCallBack<T> {
     @Override
     protected T bindData(String result) throws AppException {
-
         try {
             JSONObject json=new JSONObject(result);
             JSONObject data=json.getJSONObject("data");
