@@ -32,6 +32,9 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         this.mContext = Context;
     }
 
+    public BaseFragment() {
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayout(), container, false);
         unbinder = ButterKnife.bind(mRootView);

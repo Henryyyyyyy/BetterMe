@@ -44,11 +44,7 @@ public class Request {
         this.tool = RequestTool.URLCONNECTION;
     }
 
-    public Request(String url, RequestMethod method, RequestTool tool) {
-        this.url = url;
-        this.method = method;
-        this.tool = tool;
-    }
+
 
     public Request(String url) {
         this.url = url;
@@ -73,7 +69,7 @@ public class Request {
             throw new AppException(AppException.ErrorType.CANCEL,"the request has been cancelled");
         }
     }
-    public void cancel(boolean force) {
+    public void cancel() {
         isCancelled = true;
         iCallBack.cancel();
 
@@ -84,6 +80,12 @@ public class Request {
     public void setTag(String tag) {
         this.tag = tag;
     }
+
+    /**
+     * api11之前，asynTask是并行的，之后是串行的
+     * 所以在api11之后让它在线程池中执行提高效率
+     * @param mExecutors
+     */
     public void execute(Executor mExecutors) {
         task = new RequestTask(this);
         if (Build.VERSION.SDK_INT > 11) {

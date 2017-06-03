@@ -52,7 +52,7 @@ public class RequestTask extends AsyncTask<Void, Integer, Object> {
             }
         } catch (AppException e) {
             if (e.type == AppException.ErrorType.TIMEOUT) {
-                //把maxRetryCount放在request哩的话可以控制是否开启重试机制，如果count=0,则不重试
+                //把maxRetryCount放在request里的话可以控制是否开启重试机制，如果count=0,则不重试
                 if (retry < request.maxRetryCount) {
                     retry++;
                     return request(retry);

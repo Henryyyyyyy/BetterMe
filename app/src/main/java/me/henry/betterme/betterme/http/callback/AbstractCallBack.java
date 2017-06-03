@@ -1,6 +1,8 @@
 package me.henry.betterme.betterme.http.callback;
 
 
+import android.util.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -48,6 +50,7 @@ private String path;
                     out.flush();
                     out.close();
                     String result = new String(out.toByteArray());
+                    Log.e("henrysss","result========="+result);
                     return bindData(result);
                 }else {
                     FileOutputStream out = new FileOutputStream(path);

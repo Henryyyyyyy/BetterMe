@@ -17,6 +17,7 @@ import me.henry.betterme.betterme.demo.aboutinherit.IMethods;
 import me.henry.betterme.betterme.demo.aboutinherit.OB2;
 import me.henry.betterme.betterme.demo.aboutinherit.StaticSetMe;
 import me.henry.betterme.betterme.http.AppException;
+import me.henry.betterme.betterme.http.RequestManager;
 import me.henry.betterme.betterme.http.callback.FileCallBack;
 import me.henry.betterme.betterme.http.callback.JsonCallBack;
 import me.henry.betterme.betterme.http.Request;
@@ -38,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        testDownLoadWithProgress();
+       // testDownLoadWithProgress();
         setContentView(R.layout.activity_splash);
 
         jumpPage();
@@ -50,7 +51,6 @@ public class SplashActivity extends AppCompatActivity {
         String url = "http://api.stay4it.com/uploads/test.jpg";
         String path = Environment.getExternalStorageDirectory() + File.separator + "654ppp.jpg";
         final Request request = new Request(url, Request.RequestMethod.GET);
-        final RequestTask task = new RequestTask(request);
 
         request.setCallBack(new FileCallBack() {
             @Override
@@ -69,13 +69,13 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (curLen * 100l / totalLen > 50) {
 
-                     request.cancel(true);
+                     request.cancel();
                 }
             }
         }.setCachePath(path));
+        RequestManager.getInstance().execute(request);
         request.enableProgressUpdated(true);
 
-        task.execute();
     }
 
     public void jumpPage() {

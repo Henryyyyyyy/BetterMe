@@ -1,6 +1,7 @@
 package me.henry.betterme.betterme.http;
 
 
+import android.util.Log;
 import android.webkit.URLUtil;
 
 import java.io.IOException;
@@ -32,7 +33,6 @@ public class HttpEngine {
         } catch (AppException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -44,11 +44,11 @@ public class HttpEngine {
     private static HttpURLConnection get(Request request) throws AppException {
         try {
             request.checkIfCancelled();
-            HttpURLConnection connection = null;
-            connection = (HttpURLConnection) new URL(request.url).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(request.url).openConnection();
             connection.setRequestMethod(request.method.name());
             connection.setConnectTimeout(15 * 3000);
             connection.setReadTimeout(15 * 3000);
+
             addHeader(connection, request.headers);
             return connection;
         } catch (InterruptedIOException e) {
@@ -57,30 +57,12 @@ public class HttpEngine {
             throw new AppException(AppException.ErrorType.SERVER, e.getMessage());
         }
         //以上配置完成
-//        int status=connection.getResponseCode();
-//        if (status==200){
-//            ByteArrayOutputStream out=new ByteArrayOutputStream();
-//            InputStream is=connection.getInputStream();
-//            byte[]buffer=new byte[2048];
-//            int len;
-//            while ((len=is.read(buffer))!=-1){
-//                out.write(buffer,0,len);
-//            }
-//            out.flush();
-//            out.close();
-//            return  new String(out.toByteArray());
-//        }
-
-
     }
-
-
     private static HttpURLConnection post(Request request) throws AppException {
         HttpURLConnection connection = null;
         OutputStream os = null;
         try {
             request.checkIfCancelled();
-
             connection = (HttpURLConnection) new URL(request.url).openConnection();
             connection.setRequestMethod(request.method.name());
             connection.setConnectTimeout(15 * 3000);
@@ -106,21 +88,6 @@ public class HttpEngine {
                 throw new AppException(AppException.ErrorType.IO, "the post outputstream can't be closed");
             }
         }
-
-
-//            int status=connection.getResponseCode();
-//            if (status==200){
-//                ByteArrayOutputStream out=new ByteArrayOutputStream();
-//                InputStream is=connection.getInputStream();
-//                byte[]buffer=new byte[2048];
-//                int len;
-//                while ((len=is.read(buffer))!=-1){
-//                    out.write(buffer,0,len);
-//                }
-//                os.flush();
-//                os.close();
-//                return  new String(out.toByteArray());
-//            }
         return connection;
     }
 
