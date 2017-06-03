@@ -24,6 +24,9 @@ public class Request {
     public int maxRetryCount = 3;
     public boolean isProgressUpdate;
     public OnGlobalExceptionListener onGlobalExceptionListener;
+    public volatile boolean isCancelled;
+    public String tag;
+
     public void setGlobalExceptionListener(OnGlobalExceptionListener onGlobalExceptionListener) {
         this.onGlobalExceptionListener = onGlobalExceptionListener;
     }
@@ -65,11 +68,22 @@ public class Request {
         }
         headers.put(key, value);
     }
+    public void checkIfCancelled() throws AppException {
+        if (isCancelled){
+            throw new AppException(AppException.ErrorType.CANCEL,"the request has been cancelled");
+        }
+    }
+    public void cancel(boolean force) {
+        isCancelled = true;
+        iCallBack.cancel();
 
+    }
     public void setCallBack(ICallBack callBack) {
         this.iCallBack = callBack;
     }
-
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
     public void execute(Executor mExecutors) {
         task = new RequestTask(this);
         if (Build.VERSION.SDK_INT > 11) {

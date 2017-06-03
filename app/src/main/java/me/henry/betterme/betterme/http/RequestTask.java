@@ -1,8 +1,10 @@
 package me.henry.betterme.betterme.http;
 
-import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import java.net.HttpURLConnection;
+
 import me.henry.betterme.betterme.http.callback.OnProgressUpdatedListener;
 
 /**
@@ -18,6 +20,7 @@ import me.henry.betterme.betterme.http.callback.OnProgressUpdatedListener;
  */
 public class RequestTask extends AsyncTask<Void, Integer, Object> {
     public Request request;
+
     public RequestTask(Request request) {
         this.request = request;
     }
@@ -30,24 +33,26 @@ public class RequestTask extends AsyncTask<Void, Integer, Object> {
 
     @Override
     protected Object doInBackground(Void... params) {
-   return request(0);
+        return request(0);
     }
 
     public Object request(int retry) {
-        try{
+        try {
             HttpURLConnection connection = HttpEngine.execute(request);
             if (request.isProgressUpdate) {
                 return request.iCallBack.parse(connection, new OnProgressUpdatedListener() {
                     @Override
                     public void onProgressUpdated(int curLen, int totalLen) {
                         publishProgress(curLen, totalLen);
+
                     }
                 });
             } else {
                 return request.iCallBack.parse(connection);
             }
         } catch (AppException e) {
-            if (e.type==AppException.ErrorType.TIMEOUT){
+            if (e.type == AppException.ErrorType.TIMEOUT) {
+                //把maxRetryCount放在request哩的话可以控制是否开启重试机制，如果count=0,则不重试
                 if (retry < request.maxRetryCount) {
                     retry++;
                     return request(retry);
@@ -56,12 +61,13 @@ public class RequestTask extends AsyncTask<Void, Integer, Object> {
             return e;
         }
     }
+
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         if (o instanceof AppException) {
-            if (request.onGlobalExceptionListener!=null){
-                if (!request.onGlobalExceptionListener.handleException((AppException) o)){
+            if (request.onGlobalExceptionListener != null) {
+                if (!request.onGlobalExceptionListener.handleException((AppException) o)) {
                     //可能还有其他错误，如果handle了就返回true，不handle，就应该返回false，全局返回false
                     request.iCallBack.onFailed((AppException) o);
 

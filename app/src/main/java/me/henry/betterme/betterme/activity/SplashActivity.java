@@ -38,20 +38,20 @@ public class SplashActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        testShuffle();
+        testDownLoadWithProgress();
         setContentView(R.layout.activity_splash);
 
         jumpPage();
         BetterMeApplication.getInstance().addActivity(this);
     }
 
-    private void testShuffle() {
-
+    private void testDownLoadWithProgress() {
 
         String url = "http://api.stay4it.com/uploads/test.jpg";
         String path = Environment.getExternalStorageDirectory() + File.separator + "654ppp.jpg";
         final Request request = new Request(url, Request.RequestMethod.GET);
-        request.enableProgressUpdated(true);
+        final RequestTask task = new RequestTask(request);
+
         request.setCallBack(new FileCallBack() {
             @Override
             public void onSuccess(String result) {
@@ -62,15 +62,19 @@ public class SplashActivity extends AppCompatActivity {
             public void onFailed(AppException e) {
 
             }
-
             @Override
             public void onProgressUpdated(int curLen, int totalLen) {
                 super.onProgressUpdated(curLen, totalLen);
                 Log.e("keith", "download=" + curLen + "/" + totalLen);
+
+                if (curLen * 100l / totalLen > 50) {
+
+                     request.cancel(true);
+                }
             }
         }.setCachePath(path));
+        request.enableProgressUpdated(true);
 
-        RequestTask task = new RequestTask(request);
         task.execute();
     }
 

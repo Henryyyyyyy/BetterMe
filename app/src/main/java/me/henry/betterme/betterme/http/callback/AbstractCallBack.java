@@ -25,9 +25,11 @@ import me.henry.betterme.betterme.http.AppException;
 
 public abstract class AbstractCallBack<T> implements ICallBack<T> {
 private String path;
+    private volatile boolean isCancelled;
     @Override
     public T parse(HttpURLConnection connection,OnProgressUpdatedListener listener) throws AppException {
         try {
+            checkIfCancelled();
             int status = connection.getResponseCode();
             if (status == 200) {
                 if (path==null){
@@ -38,6 +40,7 @@ private String path;
                     byte[] buffer = new byte[2048];
                     int len;
                     while ((len = is.read(buffer)) != -1) {
+                        checkIfCancelled();
                         out.write(buffer, 0, len);
                         curLen+=len;
                         listener.onProgressUpdated(curLen,totalLen);
@@ -54,6 +57,7 @@ private String path;
                     byte[] buffer = new byte[2048];
                     int len;
                     while ((len = is.read(buffer)) != -1) {
+                        checkIfCancelled();
                         out.write(buffer, 0, len);
                         curLen+=len;
                         listener.onProgressUpdated(curLen,totalLen);
@@ -80,8 +84,18 @@ private String path;
     public void onProgressUpdated(int curLen, int totalLen) {
 
     }
-
+    protected void checkIfCancelled() throws AppException {
+        if (isCancelled) {
+            throw new AppException(AppException.ErrorType.CANCEL, "the request has been cancelled");
+        }
+    }
     protected abstract T bindData(String result) throws AppException;
+
+    @Override
+    public void cancel() {
+        isCancelled=true;
+    }
+
     public ICallBack setCachePath(String path) {
         this.path = path;
         return this;
