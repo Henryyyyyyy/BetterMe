@@ -15,7 +15,6 @@ import butterknife.BindView;
 import me.henry.betterme.betterme.R;
 import me.henry.betterme.betterme.adapter.MusicAdapter;
 import me.henry.betterme.betterme.common.BaseFragment;
-import me.henry.betterme.betterme.common.Constants;
 import me.henry.betterme.betterme.model.MusicInfo;
 import me.henry.betterme.betterme.presenter.MusicPresenter;
 import me.henry.betterme.betterme.presenter.contracts.MusicContract;

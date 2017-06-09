@@ -19,13 +19,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import me.henry.betterme.betterme.R;
 import me.henry.betterme.betterme.common.BaseActivity;
-import me.henry.betterme.betterme.common.Constants;
+import me.henry.betterme.betterme.common.MyConstants;
 import me.henry.betterme.betterme.fragment.GirlFragment;
 import me.henry.betterme.betterme.fragment.MusicFragment;
 import me.henry.betterme.betterme.fragment.NoteFragment;
@@ -36,12 +35,14 @@ import me.henry.betterme.betterme.service.MusicPlayer;
 import me.henry.betterme.betterme.utils.MusicUtil;
 import me.henry.betterme.betterme.view.OptimizeViewpager;
 import me.henry.betterme.betterme.view.customRowView.ContainerView;
+import me.henry.betterme.betterme.view.customRowView.RowActionEnum;
 import me.henry.betterme.betterme.view.customRowView.describer.BaseRowDescriber;
 import me.henry.betterme.betterme.view.customRowView.describer.GroupDescriber;
-import me.henry.betterme.betterme.view.customRowView.RowActionEnum;
 import me.henry.betterme.betterme.view.customRowView.describer.RowDescriber;
 import me.henry.betterme.betterme.view.customRowView.describer.RowProfileDescriber;
 import me.henry.betterme.betterme.view.customRowView.onRowClickListener;
+import xyz.matteobattilana.library.Common.Constants;
+import xyz.matteobattilana.library.WeatherView;
 
 
 //waitzj这里写太多东西了
@@ -68,7 +69,8 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     ImageView ivMusicMode;
     @BindView(R.id.mContainerView)
     ContainerView mContainerView;
-
+    @BindView(R.id.weather)
+    WeatherView mWeatherView;
 
     private BroadcastReceiver mMusicBro;
     Toolbar mToolbar;
@@ -94,6 +96,17 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     protected void initViewEventDataInCreate() {
         mToolbar = (Toolbar) findViewById(R.id.mToolbar);
         mToolbar.setLogo(R.drawable.icon_add);
+        //init weatherView
+        //Optional
+        mWeatherView.setWeather(Constants.weatherStatus.RAIN)
+                .setCurrentLifeTime(6000)
+                .setCurrentFadeOutTime(4000)
+                .setCurrentParticles(8)
+                .setFPS(80)
+                .setRainAngle(1)
+                 .setSnowAngle(1)
+                .setOrientationMode(Constants.orientationStatus.ENABLE)
+                .startAnimation();
         //init tabs
         List<String> titles = new ArrayList<>();
         titles.add("World");
@@ -134,7 +147,6 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         mContainerView.setOnRowClickListener(new onRowClickListener() {
             @Override
             public void onRowClick(RowActionEnum action) {
-                Log.e("exome", "onRowClick");
                 if (action.equals(RowActionEnum.MY_FIRST)) {
                     Toast.makeText(MainActivity.this, "haha", Toast.LENGTH_SHORT).show();
                 } else if (action.equals(RowActionEnum.MY_SECOND)) {
@@ -153,14 +165,14 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         mMusicBro = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(Constants.Action_updateMusicInfo)) {
+                if (intent.getAction().equals(MyConstants.Action_updateMusicInfo)) {
                     currentMusicInfo = intent.getParcelableExtra("music");
                     freshMusicPanel(currentMusicInfo);
                 }
             }
         };
         IntentFilter filter = new IntentFilter();
-        filter.addAction(Constants.Action_updateMusicInfo);
+        filter.addAction(MyConstants.Action_updateMusicInfo);
         registerReceiver(mMusicBro, filter);
     }
 
@@ -209,19 +221,19 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         if (modeIndex == 1) {
             modeIndex = modeIndex+1;
             ivMusicMode.setImageResource(R.drawable.play_icn_shuffle);
-            MusicPlayer.setPlayMode(Constants.PlayMode_Shuffle);
+            MusicPlayer.setPlayMode(MyConstants.PlayMode_Shuffle);
             return;
         }
         else if (modeIndex == 2) {
             modeIndex = modeIndex+1;
             ivMusicMode.setImageResource(R.drawable.play_icn_one);
-            MusicPlayer.setPlayMode(Constants.PlayMode_OnlyOne);
+            MusicPlayer.setPlayMode(MyConstants.PlayMode_OnlyOne);
             return;
         }
         else if (modeIndex == 3) {
             modeIndex = 1;
             ivMusicMode.setImageResource(R.drawable.play_icn_loop);
-            MusicPlayer.setPlayMode(Constants.PlayMode_Loop);
+            MusicPlayer.setPlayMode(MyConstants.PlayMode_Loop);
             return;
         }
     }

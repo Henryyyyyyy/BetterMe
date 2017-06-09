@@ -33,7 +33,8 @@ public class RequestManager {
         request.execute(mExecutors);
         //这里的tag指的是带有同一tag的一系列request
         if (request.tag == null) {
-            return;// no need to cache the request
+            // no need to cache the request
+            return;
         }
         if (!mCachedRequest.containsKey(request.tag)) {
             ArrayList<Request> requests = new ArrayList<Request>();

@@ -15,11 +15,9 @@ import java.util.Collections;
 import java.util.List;
 
 import me.henry.betterme.betterme.IMusicInterface;
-import me.henry.betterme.betterme.common.Constants;
+import me.henry.betterme.betterme.common.MyConstants;
 import me.henry.betterme.betterme.model.MusicInfo;
 import me.henry.betterme.betterme.utils.Utils;
-
-import static android.os.Build.VERSION_CODES.M;
 
 
 /**
@@ -35,7 +33,7 @@ public class MusicService extends Service {
     public List<MusicInfo> mMusicList = new ArrayList<>();
     public List<MusicInfo> mNormalList=new ArrayList<>();//用来保存原有的顺序
     public BroadcastReceiver mUpdateMusicBroadCast;
-    public int mMode = Constants.PlayMode_Loop;
+    public int mMode = MyConstants.PlayMode_Loop;
 
 
     @Override
@@ -44,7 +42,7 @@ public class MusicService extends Service {
         mUpdateMusicBroadCast = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(Constants.Action_updateMusicList)) {
+                if (intent.getAction().equals(MyConstants.Action_updateMusicList)) {
                     mMusicList = intent.getParcelableArrayListExtra("musiclist");
                     mNormalList.clear();
                     mNormalList.addAll(mMusicList);
@@ -55,7 +53,7 @@ public class MusicService extends Service {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 try {
-                    if (mMode==Constants.PlayMode_OnlyOne){
+                    if (mMode== MyConstants.PlayMode_OnlyOne){
                         mBinder.playMusic(currentMusicInfo,currentIndex);
                     }else {
                         mBinder.next();
@@ -67,7 +65,7 @@ public class MusicService extends Service {
             }
         });
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Constants.Action_updateMusicList);
+        intentFilter.addAction(MyConstants.Action_updateMusicList);
         registerReceiver(mUpdateMusicBroadCast, intentFilter);
     }
 
@@ -109,7 +107,7 @@ public class MusicService extends Service {
                     mPlayer.seekTo(0);
                     mPlayer.start();
                     currentMusicInfo = mMusicList.get(currentIndex);
-                    notifyChanges(Constants.Action_updateMusicInfo);
+                    notifyChanges(MyConstants.Action_updateMusicInfo);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -133,7 +131,7 @@ public class MusicService extends Service {
                     mPlayer.seekTo(0);
                     mPlayer.start();
                     currentMusicInfo = mMusicList.get(currentIndex);
-                    notifyChanges(Constants.Action_updateMusicInfo);
+                    notifyChanges(MyConstants.Action_updateMusicInfo);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -158,7 +156,7 @@ public class MusicService extends Service {
                     mPlayer.seekTo(0);
                     mPlayer.start();
                     currentMusicInfo = mMusicList.get(currentIndex);
-                    notifyChanges(Constants.Action_updateMusicInfo);
+                    notifyChanges(MyConstants.Action_updateMusicInfo);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -169,7 +167,7 @@ public class MusicService extends Service {
         public void setPlayMode(int mode) throws RemoteException {
             mMode = mode;
 
-            if (mode == Constants.PlayMode_Shuffle) {
+            if (mode == MyConstants.PlayMode_Shuffle) {
                 Collections.shuffle(mMusicList);
                 for (int i = 0; i < mMusicList.size(); i++) {//将洗牌前的currentindex变成当前的currentindex
                     if (mMusicList.get(i).songId == currentMusicInfo.songId) {
@@ -196,7 +194,7 @@ public class MusicService extends Service {
     };
 
     private void notifyChanges(String action) {
-        if (action.equals(Constants.Action_updateMusicInfo)) {
+        if (action.equals(MyConstants.Action_updateMusicInfo)) {
             Utils.sendUpdateInfoBro(MusicService.this, currentMusicInfo);
         }
 

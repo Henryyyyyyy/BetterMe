@@ -6,7 +6,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import me.henry.betterme.betterme.common.Constants;
+import me.henry.betterme.betterme.common.MyConstants;
 import me.henry.betterme.betterme.model.MusicInfo;
 
 /**
@@ -17,7 +17,7 @@ import me.henry.betterme.betterme.model.MusicInfo;
 public class Utils {
     public static void sendUpdateBrocastList(Context context, ArrayList<MusicInfo> musiclist) {
         Intent intent = new Intent();
-        intent.setAction(Constants.Action_updateMusicList);
+        intent.setAction(MyConstants.Action_updateMusicList);
         intent.putParcelableArrayListExtra("musiclist", musiclist);
         Log.e("ggg", "sendBroadcast");
         context.sendBroadcast(intent);
@@ -25,7 +25,7 @@ public class Utils {
 
     public static void sendUpdateInfoBro(Context context, MusicInfo music) {
         Intent intent = new Intent();
-        intent.setAction(Constants.Action_updateMusicInfo);
+        intent.setAction(MyConstants.Action_updateMusicInfo);
         intent.putExtra("music", music);
         context.sendBroadcast(intent);
     }

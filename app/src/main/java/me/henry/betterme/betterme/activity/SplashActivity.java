@@ -13,16 +13,10 @@ import java.util.concurrent.TimeUnit;
 
 import me.henry.betterme.betterme.R;
 import me.henry.betterme.betterme.app.BetterMeApplication;
-import me.henry.betterme.betterme.demo.aboutinherit.IMethods;
-import me.henry.betterme.betterme.demo.aboutinherit.OB2;
-import me.henry.betterme.betterme.demo.aboutinherit.StaticSetMe;
 import me.henry.betterme.betterme.http.AppException;
+import me.henry.betterme.betterme.http.Request;
 import me.henry.betterme.betterme.http.RequestManager;
 import me.henry.betterme.betterme.http.callback.FileCallBack;
-import me.henry.betterme.betterme.http.callback.JsonCallBack;
-import me.henry.betterme.betterme.http.Request;
-import me.henry.betterme.betterme.http.RequestTask;
-import me.henry.betterme.betterme.http.StayUser;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -39,12 +33,14 @@ public class SplashActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-       // testDownLoadWithProgress();
+        testDownLoadWithProgress();
         setContentView(R.layout.activity_splash);
 
         jumpPage();
         BetterMeApplication.getInstance().addActivity(this);
+
     }
+
 
     private void testDownLoadWithProgress() {
 
