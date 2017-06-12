@@ -71,9 +71,12 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     ContainerView mContainerView;
     @BindView(R.id.weather)
     WeatherView mWeatherView;
+    @BindView(R.id.mTitlebar)
+    RelativeLayout mTitlebar;
 
+    @BindView(R.id.ivTest)
+    ImageView ivTest;
     private BroadcastReceiver mMusicBro;
-    Toolbar mToolbar;
     private List<Fragment> mFragments = new ArrayList<>();
     private MainPagerAdapter mPagerAdapter;
     private GirlFragment girlFragment;
@@ -94,8 +97,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
 
     @Override
     protected void initViewEventDataInCreate() {
-        mToolbar = (Toolbar) findViewById(R.id.mToolbar);
-        mToolbar.setLogo(R.drawable.icon_add);
+
         //init weatherView
         //Optional
         mWeatherView.setWeather(Constants.weatherStatus.RAIN)
@@ -134,6 +136,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         ivPlayOrPause.setOnClickListener(this);
         ivPrevious.setOnClickListener(this);
         ivMusicMode.setOnClickListener(this);
+        ivTest.setOnClickListener(this);
         initBrocast();
         freshMusicPanel(MusicPlayer.getCurrentMusicInfo());
         //自定义ContainerView
@@ -209,6 +212,11 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
                 break;
             case R.id.ivMusicMode:
                 setPlayingMode();
+                break;
+            case R.id.ivTest:
+                Intent intent=new Intent(MainActivity.this,ChannelActivity.class);
+                startActivity(intent);
+
                 break;
 
         }
