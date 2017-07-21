@@ -17,5 +17,6 @@ public class MyConstants {
     //sharedpreference
     public static final String SP_weather="weather";
     public static final String SP_localcity="localcity";
+    public static final String SP_currentuser="SP_currentuser";
 //weather
 }

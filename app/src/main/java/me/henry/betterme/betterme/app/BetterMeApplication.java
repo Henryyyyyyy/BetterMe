@@ -2,19 +2,15 @@ package me.henry.betterme.betterme.app;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.location.Poi;
 import com.squareup.leakcanary.LeakCanary;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -48,10 +44,8 @@ public class BetterMeApplication extends Application {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
-                //其他配置
-                .build();
-
-        OkHttpUtils.initClient(okHttpClient);
+                .build(); //其他配置
+       OkHttpUtils.initClient(okHttpClient);
         LeakCanary.install(this);
         //百度地图相关
         mLocationClient = new LocationClient(getApplicationContext());

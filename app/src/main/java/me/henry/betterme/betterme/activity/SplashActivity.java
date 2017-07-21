@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Window;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
 import me.henry.betterme.betterme.R;
@@ -32,8 +31,6 @@ public class SplashActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-
-        testDownLoadWithProgress();
         setContentView(R.layout.activity_splash);
 
         jumpPage();
@@ -58,6 +55,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onFailed(AppException e) {
 
             }
+
             @Override
             public void onProgressUpdated(int curLen, int totalLen) {
                 super.onProgressUpdated(curLen, totalLen);
@@ -65,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (curLen * 100l / totalLen > 50) {
 
-                     request.cancel();
+                    request.cancel();
                 }
             }
         }.setCachePath(path));
@@ -75,16 +73,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void jumpPage() {
-        String s = "我爱你";
-        String str = null;
 
-        try {
-            str = new String(s.getBytes(), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        Log.e("haha", "str=" + str);
         final int count = 1;
         Observable.interval(0, 1, TimeUnit.SECONDS)//定义时间间隔(延迟执行，时间间隔,单位)
                 .take(count + 1)//做多少次操作
@@ -99,9 +88,10 @@ public class SplashActivity extends AppCompatActivity {
                 .subscribe(new Observer<Long>() {//如果要添加倒计时按钮可以加个doonsubscribe，在开始的时候设置按钮enable，如果新建的是subscriber，则用onstart
                     @Override
                     public void onCompleted() {
-                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                            Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
                     }
 
                     @Override

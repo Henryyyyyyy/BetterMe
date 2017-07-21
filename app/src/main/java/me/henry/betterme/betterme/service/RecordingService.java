@@ -36,9 +36,7 @@ public class RecordingService extends Service {
     private String mFilePath = null;
 
     private MediaRecorder mRecorder = null;
-
   //  private DBHelper mDatabase;
-
     private long mStartingTimeMillis = 0;
     private long mElapsedMillis = 0;
     private int mElapsedSeconds = 0;

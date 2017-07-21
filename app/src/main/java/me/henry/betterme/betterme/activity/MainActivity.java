@@ -28,6 +28,7 @@ import me.henry.betterme.betterme.common.MyConstants;
 import me.henry.betterme.betterme.fragment.GirlFragment;
 import me.henry.betterme.betterme.fragment.MusicFragment;
 import me.henry.betterme.betterme.fragment.NoteFragment;
+import me.henry.betterme.betterme.fragment.SquareFragment;
 import me.henry.betterme.betterme.model.MusicInfo;
 import me.henry.betterme.betterme.presenter.MainPresenter;
 import me.henry.betterme.betterme.presenter.contracts.MainContract;
@@ -82,6 +83,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
     private GirlFragment girlFragment;
     private MusicFragment musicFragment;
     private NoteFragment noteFragment;
+    private SquareFragment squareFragment;
     private MusicInfo currentMusicInfo;
 
 
@@ -119,10 +121,11 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
         }
 
         //init pager-----------------
-        girlFragment = new GirlFragment(this);
+        squareFragment=new SquareFragment(this);
+      //  girlFragment = new GirlFragment(this);
         musicFragment = new MusicFragment(this);
         noteFragment = new NoteFragment(this);
-        mFragments.add(girlFragment);
+        mFragments.add(squareFragment);
         mFragments.add(musicFragment);
         mFragments.add(noteFragment);
         mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());

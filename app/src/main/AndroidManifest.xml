@@ -40,7 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".demo.ObservableActivity"></activity>
+        <activity android:name=".demo.ObservableActivity" />
         <activity android:name=".demo.recyclerviewdemo.AdapterActivity" />
 
         <meta-data
@@ -53,11 +53,14 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
         <service android:name=".service.RecordingService" />
+
         <activity android:name=".demo.RefreshActivity" />
-        <activity android:name=".demo.SensorActivity"></activity>
-        <activity android:name=".activity.ChannelActivity"></activity>
+        <activity android:name=".demo.SensorActivity" />
+        <activity android:name=".activity.ChannelActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

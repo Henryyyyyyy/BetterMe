@@ -12,6 +12,7 @@ import me.henry.betterme.betterme.model.MeiZhiJsonData;
 import me.henry.betterme.betterme.presenter.contracts.GirlContract;
 import okhttp3.Call;
 
+
 /**
  * Created by zj on 2017/3/30.
  * me.henry.betterme.betterme.presenter

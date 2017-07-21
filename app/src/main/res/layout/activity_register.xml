@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/rl1"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="230dp"
+            android:id="@+id/edtPhoneNum"
+            android:hint="phoneNum"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tvGetCode"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:text="获取验证码"
+            android:layout_toRightOf="@+id/edtPhoneNum"
+            />
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/edtCode"
+        android:layout_width="230dp"
+        android:layout_below="@+id/rl1"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/rl1"
+        android:hint="pls input code"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/edtUserName"
+        android:layout_width="230dp"
+        android:layout_below="@+id/edtCode"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/rl1"
+        android:hint="pls input UserName"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="230dp"
+        android:layout_below="@+id/edtUserName"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/rl1"
+        android:hint="pls input password"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/btnRegister"
+        android:text="Register"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/edtPassword"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

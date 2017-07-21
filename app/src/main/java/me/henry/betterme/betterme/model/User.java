@@ -1,31 +1,29 @@
 package me.henry.betterme.betterme.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 /**
  * Created by zj on 2017/4/18.
  * me.henry.betterme.betterme.model
  */
 
-public class User implements Serializable{
-    private String id;
-    private String name;
-    public String getId() {
-        return id;
+public class User{
+    public Boolean getSex() {
+        return sex;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSex(Boolean sex) {
+        this.sex = sex;
     }
 
-    public String getName() {
-        return name;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAge(Integer age) {
+        this.age = age;
     }
+
+    public Boolean sex;
+    public Integer age;
 
 
 }

@@ -33,7 +33,6 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
 //                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //            }
 //        }
-
         setContentView(getLayout());
         unbinder = ButterKnife.bind(this);
         mPresenter = initPresenter();
