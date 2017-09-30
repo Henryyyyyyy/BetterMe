@@ -162,7 +162,7 @@ public class RecordingService extends Service {
 //                        .setOngoing(true);
 //
 //        mBuilder.setContentIntent(PendingIntent.getActivities(getApplicationContext(), 0,
-//                new Intent[]{new Intent(getApplicationContext(), MainActivity.class)}, 0));
+//                new Intent[]{new Intent(getApplicationContext(), Main3Activity.class)}, 0));
 //
 //        return mBuilder.build();
 //    }

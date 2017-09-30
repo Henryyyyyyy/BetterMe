@@ -7,6 +7,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import me.henry.betterme.betterme.api.WeatherApi;
 import me.henry.betterme.betterme.common.MyConstants;
+import me.henry.betterme.betterme.demo.greendaoo.wrap.DataBaseManager;
 import me.henry.betterme.betterme.model.Person;
 import me.henry.betterme.betterme.utils.SharedPresUtil;
 import okhttp3.OkHttpClient;
@@ -45,7 +47,7 @@ public class BetterMeApplication extends Application {
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 .build(); //其他配置
-       OkHttpUtils.initClient(okHttpClient);
+        OkHttpUtils.initClient(okHttpClient);
         LeakCanary.install(this);
         //百度地图相关
         mLocationClient = new LocationClient(getApplicationContext());
@@ -54,7 +56,19 @@ public class BetterMeApplication extends Application {
         mLocationClient.start();
         instance = this;
 
+        initDataBase();
+        initStetho();
+    }
 
+    private void initStetho() {
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build());
+    }
+
+    private void initDataBase() {
+        DataBaseManager.getInstance().init(this);
     }
 
     private void initLocation() {
@@ -118,10 +132,10 @@ public class BetterMeApplication extends Application {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            if (!isGet){
+            if (!isGet) {
                 SharedPresUtil.setString(getApplicationContext(), MyConstants.SP_localcity, location.getCity());
-                WeatherApi.getLocalWeather(getApplicationContext(),location.getCity());
-                isGet=true;
+                WeatherApi.getLocalWeather(getApplicationContext(), location.getCity());
+                isGet = true;
             }
         }
 

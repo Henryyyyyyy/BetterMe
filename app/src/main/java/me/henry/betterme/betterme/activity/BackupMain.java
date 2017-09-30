@@ -35,7 +35,7 @@ public class BackupMain {
 //
 //    Toolbar mToolbar;
 //    private List<Fragment> mFragments = new ArrayList<>();
-//    private MainActivity.MainPagerAdapter mPagerAdapter;
+//    private Main3Activity.MainPagerAdapter mPagerAdapter;
 //    private GirlFragment girlFragment;
 //    private MusicFragment musicFragment;
 //    private NoteFragment noteFragment;
@@ -73,7 +73,7 @@ public class BackupMain {
 //        mFragments.add(musicFragment);
 //        mFragments.add(noteFragment);
 //        mFragments.add(loveFragment);
-//        mPagerAdapter = new MainActivity.MainPagerAdapter(getSupportFragmentManager());
+//        mPagerAdapter = new Main3Activity.MainPagerAdapter(getSupportFragmentManager());
 //        viewpager.setAdapter(mPagerAdapter);
 //        //关联tabs---------
 //        tabs.setupWithViewPager(viewpager);

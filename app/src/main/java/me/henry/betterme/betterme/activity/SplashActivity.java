@@ -12,10 +12,13 @@ import java.util.concurrent.TimeUnit;
 
 import me.henry.betterme.betterme.R;
 import me.henry.betterme.betterme.app.BetterMeApplication;
+import me.henry.betterme.betterme.demo.adversdk.AdverDemoActivity;
+import me.henry.betterme.betterme.demo.colorchange.ColorChangeActivity;
 import me.henry.betterme.betterme.http.AppException;
 import me.henry.betterme.betterme.http.Request;
 import me.henry.betterme.betterme.http.RequestManager;
 import me.henry.betterme.betterme.http.callback.FileCallBack;
+import me.henry.scrollads.utils.ABFileUtil;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -32,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         setContentView(R.layout.activity_splash);
-
+        ABFileUtil.creatSDDir("/AdverFiles");//创建文件目录，用于放广告图片
         jumpPage();
         BetterMeApplication.getInstance().addActivity(this);
 
@@ -88,6 +91,7 @@ public class SplashActivity extends AppCompatActivity {
                 .subscribe(new Observer<Long>() {//如果要添加倒计时按钮可以加个doonsubscribe，在开始的时候设置按钮enable，如果新建的是subscriber，则用onstart
                     @Override
                     public void onCompleted() {
+//                            Intent intent=new Intent(SplashActivity.this,AdverDemoActivity.class);
                             Intent intent=new Intent(SplashActivity.this,MainActivity.class);
                             startActivity(intent);
                             finish();

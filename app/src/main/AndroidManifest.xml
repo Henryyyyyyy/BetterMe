@@ -3,7 +3,6 @@
     package="me.henry.betterme.betterme">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 这个权限用于访问GPS定位 -->
@@ -20,6 +19,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".app.BetterMeApplication"
@@ -33,13 +34,7 @@
             android:value="cYGG5ta0t16Q2T3CWH5FNBbEVSVvQTCW" />
 
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.SplashActivity"></activity>
         <activity android:name=".demo.ObservableActivity" />
         <activity android:name=".demo.recyclerviewdemo.AdapterActivity" />
 
@@ -60,7 +55,25 @@
         <activity android:name=".demo.SensorActivity" />
         <activity android:name=".activity.ChannelActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".demo.videomediacontroller.ControllerActivity" />
+        <activity android:name=".demo.videomediacontroller.Main3Activity" />
+        <activity android:name=".demo.videomediacontroller.VideoViewActivity" />
+        <activity
+            android:name=".demo.adversdk.AdverDemoActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".demo.adversdk.UploadClientActivity" />
+        <activity android:name=".demo.colorchange.ColorChangeActivity" />
+        <activity android:name=".demo.greendaoo.GreenActivity">
+
+        </activity>
+        <activity android:name=".demo.websockett.WebSocketActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
