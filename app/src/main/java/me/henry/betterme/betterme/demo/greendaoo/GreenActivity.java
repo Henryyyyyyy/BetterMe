@@ -18,8 +18,8 @@ public class GreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 final HenryUser profile1 = new HenryUser("qwe","qas",true,1357036);
-                DataBaseManager.getInstance().getHenryUserDao().insert(profile1);
-
+                ((HenryUserDao)DataBaseManager.getInstance().getDao(HenryUser.class)).insert(profile1);
+//                ((HenryUserDao)DataBaseManager.getInstance().getDao(HenryUser.class)).
                 final HenryUser profile2 = new HenryUser("dsfds","fdsf",true,2321);
                 DataBaseManager.getInstance().getHenryUserDao().insert(profile2);
             }

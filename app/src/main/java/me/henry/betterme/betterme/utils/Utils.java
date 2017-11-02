@@ -29,7 +29,12 @@ public class Utils {
         intent.putExtra("music", music);
         context.sendBroadcast(intent);
     }
-
+    public static void sendUpdatePlayState(Context context, boolean isPlaying) {
+        Intent intent = new Intent();
+        intent.setAction(MyConstants.Action_updatePlayState);
+        intent.putExtra("isPlaying", isPlaying);
+        context.sendBroadcast(intent);
+    }
     /**
      * 是否快速点击
      * @param minTime

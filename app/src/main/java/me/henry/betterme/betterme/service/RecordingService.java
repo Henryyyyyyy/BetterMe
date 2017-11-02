@@ -130,6 +130,7 @@ public class RecordingService extends Service {
         mRecorder = null;
 
         try {
+
          //   mDatabase.addRecording(mFileName, mFilePath, mElapsedMillis);
 
         } catch (Exception e){

@@ -18,7 +18,7 @@ import me.henry.betterme.betterme.R;
 public class WebSocketActivity extends AppCompatActivity {
     String url="ws://192.168.11.105:8765";
     int port=8765;
-@BindView(R.id.connect)
+    @BindView(R.id.connect)
     TextView connect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

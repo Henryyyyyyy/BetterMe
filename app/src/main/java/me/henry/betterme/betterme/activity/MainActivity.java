@@ -175,16 +175,21 @@ public class MainActivity extends BaseActivity<MainContract.View, MainPresenter>
                     currentMusicInfo = intent.getParcelableExtra("music");
                     freshMusicPanel(currentMusicInfo);
                 }
+                if (intent.getAction().equals(MyConstants.Action_updatePlayState)){
+                    boolean isPlaying=intent.getBooleanExtra("isPlaying",true);
+                    ivPlayOrPause.setImageResource(isPlaying?R.drawable.playbar_btn_pause:R.drawable.playbar_btn_play);
+
+                }
             }
         };
         IntentFilter filter = new IntentFilter();
         filter.addAction(MyConstants.Action_updateMusicInfo);
+        filter.addAction(MyConstants.Action_updatePlayState);
         registerReceiver(mMusicBro, filter);
     }
 
     private void freshMusicPanel(MusicInfo info) {
         if (info != null) {
-            Log.e("suck", "currentMusicInfo=" + info.toString());
             tvCurMusicName.setText(info.musicName);
             tvCurMusicSinger.setText(info.artist);
             Glide.with(this)

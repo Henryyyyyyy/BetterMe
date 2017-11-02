@@ -9,10 +9,12 @@ interface IMusicInterface {
      * and return values in AIDL.
      */
     void playOrPause();
+    void pause();
     void next();
     void previous();
     void getCurrentPosition();
     void playMusic(in MusicInfo music,int index);
     void setPlayMode(in int mode);
     MusicInfo getCurrentMusicInfo();
+    boolean getPlayState();
 }

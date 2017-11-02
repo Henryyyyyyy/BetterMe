@@ -34,12 +34,18 @@
             android:value="cYGG5ta0t16Q2T3CWH5FNBbEVSVvQTCW" />
 
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.SplashActivity"></activity>
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".demo.ObservableActivity" />
         <activity android:name=".demo.recyclerviewdemo.AdapterActivity" />
 
         <meta-data
-            android:name="me.henry.betterme.betterme.model.ZengJinGlideModule"
+            android:name="me.henry.betterme.betterme.common.ZengJinGlideModule"
             android:value="GlideModule" />
 
         <service
@@ -68,12 +74,13 @@
 
         </activity>
         <activity android:name=".demo.websockett.WebSocketActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+        <receiver android:name=".common.MediaReceiver">
+            <intent-filter >
+                <action android:name="android.intent.action.MEDIA_BUTTON"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'org.greenrobot.greendao' // apply plugin
+    apply plugin: 'org.greenrobot.greendao' // apply plugin
 android {
     compileSdkVersion 25
     buildToolsVersion "24.0.2"
@@ -32,7 +32,7 @@ sourceSets {
     }
 
 }
-greendao{
+greendao {
     //数据库版本号
     schemaVersion 1
 }

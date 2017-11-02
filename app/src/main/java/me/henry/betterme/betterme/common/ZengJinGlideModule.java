@@ -1,4 +1,4 @@
-package me.henry.betterme.betterme.model;
+package me.henry.betterme.betterme.common;
 
 import android.content.Context;
 
@@ -6,8 +6,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.module.GlideModule;
-
-import static android.R.attr.data;
 
 /**
  * Created by zj on 2017/4/6.

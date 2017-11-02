@@ -8,6 +8,8 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import me.henry.betterme.betterme.IMusicInterface;
 import me.henry.betterme.betterme.model.MusicInfo;
+
+import static android.R.attr.mode;
 import static android.content.Context.BIND_AUTO_CREATE;
 
 
@@ -91,5 +93,13 @@ public class MusicPlayer {
             e.printStackTrace();
 
         }
+    }
+    public static boolean getPlayState(){
+        try {
+            return mService.getPlayState();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
